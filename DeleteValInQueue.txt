@@ -1,0 +1,112 @@
+#include<iostream>
+using namespace std;
+class queue {
+public:
+	int* arr;
+	int front;
+	int rear;
+	int size;
+
+	queue(int size)
+	{
+		this->size = size;
+		front = 0;
+		rear = 0;
+		
+		arr = new int[size];
+	}
+	void enqueue(int val)
+	{
+		if (rear == size)
+			cout << "Queue is Full!";
+		else
+		{
+			arr[rear] = val;
+			rear++;
+		}
+	}
+	void dequeue()
+	{
+		if (front == rear)
+			cout << "Queue is Empty!";
+		else
+		{
+			arr[front] = -1;
+			front++;
+			if (front == rear)
+			{
+				front = 0;
+				rear = 0;
+			}
+		}
+	}
+	int top()
+	{
+		if (front == rear)
+		{
+			return -1;
+		}
+		else
+		{
+			return arr[front];
+		}
+	}
+	bool empty()
+	{
+		if (front == rear)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+};
+void deletequeue(queue &q)
+{
+	int val;
+	cout << "Enter the value you want to delete: ";
+	cin >> val;
+
+	queue tempQueue(q.size);
+	while (!q.empty())
+	{
+		if (q.top() == val)
+		{
+			q.dequeue();
+		}
+		else
+		{
+			tempQueue.enqueue(q.top());
+			q.dequeue();
+		}
+	}
+	while (!tempQueue.empty())
+	{
+		q.enqueue(tempQueue.top());
+		tempQueue.dequeue();
+	}
+}
+int main()
+{
+	queue q(5);
+
+	q.enqueue(1);
+	q.enqueue(2);
+	q.enqueue(3);	
+	q.enqueue(4);
+	q.enqueue(5);
+
+	deletequeue(q);
+
+	while (!q.empty())
+	{
+		cout << q.top() <<" ";
+		q.dequeue();
+	}
+
+	return 0;
+}
+

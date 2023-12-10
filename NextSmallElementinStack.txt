@@ -1,0 +1,100 @@
+#include <iostream>
+using namespace std;
+
+template <class T>
+class stack {
+public:
+    T* data;
+    int count;
+    int size;
+
+    stack(int size) {
+        this->size = size;
+        data = new T[size];
+        count = -1;
+    }
+
+    void push(T val) {
+        if (count < size - 1) {
+            count++;
+            data[count] = val;
+        }
+        else {
+            cout << "Stack Overflow!";
+        }
+    }
+
+    void pop() {
+        if (count >= 0) {
+            count--;
+        }
+        else {
+            cout << "Stack underflow!";
+        }
+    }
+
+    T top() {
+        if (count >= 0) {
+            return data[count];
+        }
+        else {
+            cout << "Stack Empty!";
+            return T();
+        }
+    }
+
+    bool empty() {
+        return count == -1;
+    }
+};
+
+void nextCheckElement(stack<int>& s) {
+    stack<int> tempStack(s.size);
+
+    while (!s.empty()) {
+        int tempValue = s.top();
+        s.pop();
+
+        while (!s.empty() && tempValue > s.top()) {
+            if (s.top());
+        }
+
+        if (!s.empty()) {
+            tempStack.push(s.top());
+        }
+        else {
+            tempStack.push(-1);
+        }
+    }
+
+    while (!tempStack.empty()) {
+        s.push(tempStack.top());
+        tempStack.pop();
+    }
+}
+
+void printStack(stack<int>& s) {
+    while (!s.empty()) {
+        cout << s.top() << " ";
+        s.pop();
+    }
+    cout << endl;
+}
+
+int main() {
+    stack<int> s(5);
+    s.push(1);
+    s.push(2);
+    s.push(3);
+    s.push(4);
+
+    cout << "Original Stack: ";
+    printStack(s);
+
+    nextCheckElement(s);
+
+    cout << "Updated Stack: ";
+    printStack(s);
+
+    return 0;
+}

@@ -1,0 +1,108 @@
+#include<iostream>
+using namespace std;
+template <class T>
+class stack {
+public:
+	T* data;
+	int count;
+	int size;
+
+	stack(int size)
+	{
+		this -> size = size;
+		data = new T[size];
+		count = -1;
+	}
+	void push(T val)
+	{
+		if (size - count > 1)
+		{
+			count++;
+			data[count] = val;
+		}
+		else
+		{
+			cout << "Stack Overflow!";
+		}
+	}
+	void pop()
+	{
+		if (count >= 0)
+		{
+			count--;
+		}
+		else
+		{
+			cout << "Stack underflow!";
+
+		}
+	}
+	T top()
+	{
+		if (count >= 0)
+		{
+			return data[count];
+		}
+		else
+		{
+			cout << "Stack Empty!";
+			return T();
+		}
+	}
+	bool empty()
+	{
+		return count == -1;
+	}
+};
+bool deleteval(stack<int>& s)
+{
+	int val;
+	cout << "Enter the value you want to delete in Stack: ";
+	cin >> val;
+
+	stack <int> temp(s.size);
+	int check = 0;
+	while (!s.empty()) {
+		if (val == s.top()) {
+			break;
+		}
+		else {
+			check++;
+			temp.push(s.top());
+			s.pop();
+		}
+	}
+
+	while (!temp.empty()) {
+		s.push(temp.top());
+		temp.pop();
+	}
+
+	return check != s.size;
+}
+int main()
+{
+	stack<int>  s(5);
+	s.push(1);
+	s.push(2);
+	s.push(3);
+	s.push(4);
+	s.push(5);
+
+
+	
+
+
+	
+	if (deleteval(s)==true)
+	{
+		cout << "Value is found in Stack" << endl;
+	}
+	else
+	{
+		cout << "Value is not found in Stack" << endl;
+	}
+
+
+		return 0;
+}

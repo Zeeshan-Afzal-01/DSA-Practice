@@ -1,0 +1,88 @@
+#include<iostream>
+using namespace std;
+struct node {
+	int data;
+	node* next;
+	node* prev;
+};
+class linkedlist {
+public:
+	node* head;
+
+	linkedlist() {
+		head = nullptr;
+	}
+
+	void append(int val)
+	{
+		node* newnode = new node;
+		newnode->data = val;
+		newnode->next = nullptr;
+		newnode->prev = nullptr;
+		if (head == nullptr)
+		{
+			head = newnode;
+			head->next = newnode;
+			head->prev = newnode;
+		}
+		else
+		{
+			node* temp=head;
+			while (temp->next != head)
+			{
+				temp = temp->next;
+			}
+			temp->next = newnode;
+			newnode->prev = temp;
+			newnode->next = head;
+			head->prev = newnode;
+
+		}
+	}
+	void display(){
+		node* current = head;
+		do
+		{
+			cout << current->data << " ";
+			current = current->next;
+		} while (current != head);
+	}
+	void delete_node(int val)
+	{
+		node* current = head;
+
+		while (1)
+		{
+			if (current->data == val)
+			{
+				if (current == head)
+				{
+					head = current->next;
+				}
+				current->prev->next = current->next;
+				current->next->prev = current->prev;
+				delete current;
+				break;
+			}
+			else
+			{
+				current = current->next;
+
+			}
+			
+		}
+	}
+};
+int main()
+{
+	linkedlist mylist;
+
+	mylist.append(1);
+	mylist.append(2);
+	mylist.append(3);
+	mylist.append(4);
+
+	mylist.delete_node(1);
+
+	mylist.display();
+}
