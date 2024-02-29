@@ -98,7 +98,7 @@ public:
             else if (leftIndex != -1 && rightIndex == -1)
             {
                 if (arr[i * 2 + 1] > arr[i])
-                {
+                { 
                     swap(arr[i * 2 + 1], arr[i]);
                     i = i * 2 + 1;
                 }
@@ -111,7 +111,9 @@ public:
         return temp;
 
     }
+  
 };
+
 
 int main()
 {
